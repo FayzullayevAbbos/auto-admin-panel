@@ -32,7 +32,6 @@ export default function Login() {
       if(data?.success === true){
         setLoading(false)
         message.info("success")
-        navigate('/')
         localStorage.setItem("token" , data?.data?.tokens?.accessToken?.token)
         navigate('/')
       }else{

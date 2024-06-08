@@ -21,7 +21,7 @@ function SiderMY({ children }) {
   } = theme.useToken();
 
   useEffect(() => {
-    if (location.pathname == "/") {
+    if (location.pathname == "/home") {
       setLocationPath("1");
     } else if (location.pathname == "/brands") {
       setLocationPath("2");

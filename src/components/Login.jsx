@@ -33,7 +33,7 @@ export default function Login() {
         setLoading(false)
         message.info("success")
         localStorage.setItem("token" , data?.data?.tokens?.accessToken?.token)
-        navigate('/')
+        navigate('/home')
       }else{
         setLoading(false)
        message.error("error")

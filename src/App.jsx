@@ -40,9 +40,7 @@ function App() {
     {
       path: "/",
       element: token ? (
-        <SiderMY>
-          <Home />{" "}
-        </SiderMY>
+        <Navigate to='/home' replace />
       ) : (
         <Navigate to='/login' replace />
       ),

@@ -22,7 +22,7 @@ const router = createBrowserRouter([
   },
   {
     path:'/brands',
-    element: token?.length  ? <SiderMY><Push/></SiderMY> : <Navigate to={"/login" } replace/>
+    element: token ? <SiderMY><Push/></SiderMY> : <Navigate to={"/login" } replace/>
   }
 ])
   return (

@@ -32,8 +32,8 @@ function SiderMY({ children }) {
   return (
     <Layout className='h-screen'>
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className='   text-white text-center mt-6 text-2xl font-bold pb-10'>
-          <span className=' demo-logo-vertical bg-[#052D5C]  '>
+        <div className='   text-white text-center mt-5 text-2xl font-bold pb-10'>
+          <span className={`${!collapsed ? 'logo1 bg-[#052D5C] ' : 'logo2 bg-[#254195b3] text-xl p-1 rounded-md'}   `}>
             AUTO
           </span>
         </div>

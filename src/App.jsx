@@ -43,7 +43,7 @@ function App() {
     {
       path: "/brands",
       element: check || token  ? (
-        <SiderMY>
+        <SiderMY setCheck={setCheck}>
           <Brands />
         </SiderMY>
       ) : (
@@ -53,7 +53,7 @@ function App() {
     {
       path: "/cities",
       element: check || token  ? (
-        <SiderMY>
+        <SiderMY setCheck={setCheck}>
           <Cities />
         </SiderMY>
       ) : (
@@ -63,7 +63,7 @@ function App() {
     {
       path: "/locations",
       element: check || token  ? (
-        <SiderMY>
+        <SiderMY setCheck={setCheck}>
           <Locations />
         </SiderMY>
       ) : (
@@ -73,7 +73,7 @@ function App() {
     {
       path: "/models",
       element: check || token  ? (
-        <SiderMY>
+        <SiderMY setCheck={setCheck}>
           <Moduls />
         </SiderMY>
       ) : (
@@ -83,7 +83,7 @@ function App() {
     {
       path: "/cars",
       element: check || token  ? (
-        <SiderMY>
+        <SiderMY setCheck={setCheck}>
           <Cars />
         </SiderMY>
       ) : (

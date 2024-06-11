@@ -42,7 +42,7 @@ function App() {
 
     {
       path: "/brands",
-      element: token ? (
+      element: check || token  ? (
         <SiderMY>
           <Brands />
         </SiderMY>
@@ -52,7 +52,7 @@ function App() {
     },
     {
       path: "/cities",
-      element: token ? (
+      element: check || token  ? (
         <SiderMY>
           <Cities />
         </SiderMY>
@@ -62,7 +62,7 @@ function App() {
     },
     {
       path: "/locations",
-      element: token ? (
+      element: check || token  ? (
         <SiderMY>
           <Locations />
         </SiderMY>
@@ -72,7 +72,7 @@ function App() {
     },
     {
       path: "/models",
-      element: token ? (
+      element: check || token  ? (
         <SiderMY>
           <Moduls />
         </SiderMY>
@@ -82,7 +82,7 @@ function App() {
     },
     {
       path: "/cars",
-      element: token ? (
+      element: check || token  ? (
         <SiderMY>
           <Cars />
         </SiderMY>
@@ -92,7 +92,7 @@ function App() {
     },
     {
       path: "/",
-      element: token ? (
+      element: check || token  ? (
         <Navigate to='/home' replace />
       ) : (
         <Navigate to='/login' replace />

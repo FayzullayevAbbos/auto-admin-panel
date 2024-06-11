@@ -1,37 +1,90 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Navigate,
   RouterProvider,
   createBrowserRouter,
 } from "react-router-dom";
 import "./App.css";
-import Home from "./pages/Home";
+import Home from "./pages/categories/Home";
 import Login from "./components/Login";
 import SiderMY from "./components/Sider";
-import Push from "./pages/Push";
+
+import { useEffect, useState } from "react";
+import Brands from "./pages/brands/Brands";
+import Cities from "./pages/cities/Cities";
+import Locations from "./pages/locations/Locations";
+import Moduls from "./pages/moduls/Moduls";
+import Cars from "./pages/cars/Cars";
 
 function App() {
   const token = localStorage.getItem("token");
-
+  const [check, setCheck] = useState(false);
+  useEffect(() => {
+    token ? setCheck(true) : setCheck(false);
+  }, []);
   const router = createBrowserRouter([
     {
       path: "/login",
-      element: <Login />,
+      element: <Login setCheck={setCheck} />,
     },
+
     {
       path: "/home",
-      element: token ? (
-        <SiderMY>
-          <Home />{" "}
-        </SiderMY>
-      ) : (
-        <Navigate to='/login' replace />
-      ),
+      element:
+        check || token ? (
+          <SiderMY setCheck={setCheck}>
+            <Home check={check} />{" "}
+          </SiderMY>
+        ) : (
+          <Navigate to='/login' replace />
+        ),
     },
+
     {
       path: "/brands",
       element: token ? (
         <SiderMY>
-          <Push />
+          <Brands />
+        </SiderMY>
+      ) : (
+        <Navigate to={"/login"} replace />
+      ),
+    },
+    {
+      path: "/cities",
+      element: token ? (
+        <SiderMY>
+          <Cities />
+        </SiderMY>
+      ) : (
+        <Navigate to={"/login"} replace />
+      ),
+    },
+    {
+      path: "/locations",
+      element: token ? (
+        <SiderMY>
+          <Locations />
+        </SiderMY>
+      ) : (
+        <Navigate to={"/login"} replace />
+      ),
+    },
+    {
+      path: "/models",
+      element: token ? (
+        <SiderMY>
+          <Moduls />
+        </SiderMY>
+      ) : (
+        <Navigate to={"/login"} replace />
+      ),
+    },
+    {
+      path: "/cars",
+      element: token ? (
+        <SiderMY>
+          <Cars />
         </SiderMY>
       ) : (
         <Navigate to={"/login"} replace />

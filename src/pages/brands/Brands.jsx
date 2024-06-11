@@ -1,43 +1,29 @@
 /* eslint-disable react/no-unescaped-entities */
+/* eslint-disable no-undef */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
+import {  useEffect, useState } from "react";
+
+import getData from "../../hooks/getData";
+import { Button, Form, Input, Modal, Popconfirm, Space, Table, message } from "antd";
 import {
   DeleteOutlined,
   EditOutlined,
   PlusCircleOutlined,
 } from "@ant-design/icons";
-import {
-  Button,
-  Form,
-  Input,
-  Modal,
-  Popconfirm,
-  Space,
-  Table,
-  message,
-} from "antd";
-import { useEffect, useRef, useState } from "react";
+import PostForm from "./components/PostForm";
 
-import PushForm from "../components/PushForm";
-
-function Home() {
-  const [image, setImage] = useState();
-  const [imageUrl, setImageUrl] = useState(null);
-  const [loading, setLoading] = useState(false);
+function Brands() {
+  const { getApi, datas } = getData();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [image, setImage] = useState();
   const [currentRecord, setCurrentRecord] = useState(null);
-  const [categories, setCategories] = useState([]);
-
-  function getApi() {
-    fetch("https://autoapi.dezinfeksiyatashkent.uz/api/categories")
-      .then((res) => res.json())
-      .then((data) => {
-        setCategories(data?.data);
-      });
-  }
+  const [imageUrl, setImageUrl] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const token = localStorage.getItem('token')
+  const [form] = Form.useForm()
   useEffect(() => {
-    getApi();
+    getApi("brands");
   }, []);
 
   const showModal = () => {
@@ -49,43 +35,46 @@ function Home() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  const token = localStorage.getItem("token");
-  const handleDelete = async (record) => {
-    try {
-      // API chaqiruv - delete metodini chaqirish
-      const response = await fetch(
-        `https://autoapi.dezinfeksiyatashkent.uz/api/categories/${record.id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
 
-      if (response.ok) {
-        message.success(`Deleted ${record.name}`);
-        getApi();
-        // Ma'lumotlarni yangilash yoki qayta yuklash
-      } else {
-        message.error(`You can not delete`);
-      }
-    } catch (error) {
-      message.error(`Error deleting ${record.name}`);
-    }
-  };
-  const [form] = Form.useForm();
+
   const showModall = (record) => {
+    console.log(record);
     setCurrentRecord(record);
     form.setFieldsValue(record);
     setImage(
       `https://autoapi.dezinfeksiyatashkent.uz/api/uploads/images/${record.image_src}`,
     );
     setIsModalVisible(true);
+
   };
   const handleCancell = () => {
     setIsModalVisible(false);
+  };
+
+  const handleDelete = async (record) => {
+    try {
+     
+      const response = await fetch(
+        `https://autoapi.dezinfeksiyatashkent.uz/api/brands/${record.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-type": "multipart/form-data", 
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      if (response.ok) {
+        message.success(`Deleted ${record.title}`);
+        getApi('brands');
+        // Ma'lumotlarni yangilash yoki qayta yuklash
+      } else {
+        message.error(`You can not delete`);
+      }
+    } catch (error) {
+      message.error(`Error deleting ${record.title}`);
+    }
   };
 
   const handleFileChange = (e) => {
@@ -100,17 +89,17 @@ function Home() {
     }
   };
 
+
   const handlePut = async () => {
     const formData = new FormData();
     const values = form.getFieldsValue();
 
-    formData.append("name_en", values.name_en);
-    formData.append("name_ru", values.name_ru);
+    formData.append("title", values.title);
     formData.append("images", imageUrl);
     setLoading(true);
     try {
       const response = await fetch(
-        `https://autoapi.dezinfeksiyatashkent.uz/api/categories/${currentRecord.id}`,
+        `https://autoapi.dezinfeksiyatashkent.uz/api/brands/${currentRecord.id}`,
         {
           method: "PUT",
           headers: {
@@ -120,38 +109,29 @@ function Home() {
           body: formData,
         },
       );
+      console.log(response);
       if (response.ok) {
+        console.log(values);
         setLoading(false);
-        getApi();
-        message.success(`Updated ${values.name}`);
-        setCategories(
-          categories.map((item) =>
-            item.id === currentRecord.id
-              ? { ...item, ...values }
-              : item,
-          ),
-        );
-        form.resetFields();
-        setIsModalVisible(false);
+        message.success(`Updated ${values.title}`);
+      
+          form.resetFields();
+          setIsModalVisible(false);
+          getApi('brands');
       } else {
         setLoading(false);
-        message.error(`Failed to update ${values.name}`);
+        message.error(`Failed to update ${values.title}`);
       }
     } catch (error) {
       setLoading(false);
-      message.error(`Error updating ${currentRecord.name}`);
+      // message.error(`Error updating ${currentRecord.name}`);
     }
   };
 
   const col = [
     {
-      title: "Name_EN",
-      dataIndex: "name_en",
-      key: "name-en",
-    },
-    {
-      title: "Name_RU",
-      dataIndex: "name_ru",
+      title: "Title",
+      dataIndex: "title",
       key: "name-ru",
     },
     {
@@ -159,8 +139,8 @@ function Home() {
       dataIndex: "image_src",
       key: "name-ru",
       render: (text) => (
-        <img 
-        key={text}
+        <img
+          key={text}
           src={`https://autoapi.dezinfeksiyatashkent.uz/api/uploads/images/${text}`}
           alt={text}
           style={{ width: "50px", height: "50px" }}
@@ -191,7 +171,8 @@ function Home() {
       ),
     },
   ];
-  const file = useRef();
+
+  console.log(datas);
 
   return (
     <div className='h-full'>
@@ -212,18 +193,18 @@ function Home() {
           onCancel={handleCancel}
           footer={null}
         >
-          <PushForm setIsModalOpen={setIsModalOpen} getApi={getApi} />
+          <PostForm setIsModalOpen={setIsModalOpen} getApi={getApi} />
         </Modal>
       </div>
       <Table
+        className=''
         pagination={{ pageSize: 8 }}
         columns={col}
-        dataSource={categories}
-        
+        dataSource={datas}
       />
-      <Modal
+       <Modal
         title='Edit Item'
-        visible={isModalVisible}
+        open={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancell}
         footer={null}
@@ -234,18 +215,10 @@ function Home() {
           layout='vertical'
           name='editForm'
         >
+         
           <Form.Item
-            name='name_en'
-            label='Name_RU'
-            rules={[
-              { required: true, message: "Please input the name!" },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name='name_ru'
-            label='Name_EN'
+            name='title'
+            label='Title'
             rules={[
               {
                 required: true,
@@ -255,7 +228,7 @@ function Home() {
           >
             <Input />
           </Form.Item>
-          <Form.Item className='w-full '>
+          <Form.Item  className='w-full '>
             <div className='flex flex-col gap-3'>
               <input
               className="file-input"
@@ -264,7 +237,7 @@ function Home() {
                 required
                 accept='image/*'
                 name='file'
-                ref={file}
+              
               />
               <img
               className="rounded-xl"
@@ -289,4 +262,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Brands;

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { Form, Input, Button,  message} from "antd";
 
@@ -6,7 +7,7 @@ import { Form, Input, Button,  message} from "antd";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Login({setCheck}) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -15,7 +16,7 @@ export default function Login() {
 
   const onFinish = (values) => {
     setLoading(true)
-    console.log(values);
+    
     fetch('https://autoapi.dezinfeksiyatashkent.uz/api/auth/signin' ,
       {
         method:"POST",
@@ -32,6 +33,7 @@ export default function Login() {
       if(data?.success === true){
         setLoading(false)
         message.info("success")
+        setCheck(true)
         localStorage.setItem("token" , data?.data?.tokens?.accessToken?.token)
         navigate('/home')
       }else{

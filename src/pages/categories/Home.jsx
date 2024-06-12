@@ -49,7 +49,10 @@ function Home() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
   const token = localStorage.getItem("token");
+  
+
   const handleDelete = async (record) => {
     try {
       // API chaqiruv - delete metodini chaqirish
@@ -75,6 +78,7 @@ function Home() {
       message.error(`Error deleting ${record.name}`);
     }
   };
+  
   const [form] = Form.useForm();
   const showModall = (record) => {
     setCurrentRecord(record);

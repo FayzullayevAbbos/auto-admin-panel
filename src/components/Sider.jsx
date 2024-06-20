@@ -177,7 +177,7 @@ function SiderMY({ children, setCheck }) {
       </Sider>
       <Layout>
         <Header
-          className='flex items-center justify-between'
+          className='flex items-center justify-between '
           style={{ padding: 0, background: colorBgContainer }}
         >
           <Button

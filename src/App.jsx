@@ -42,61 +42,67 @@ function App() {
 
     {
       path: "/brands",
-      element: check || token  ? (
-        <SiderMY setCheck={setCheck}>
-          <Brands />
-        </SiderMY>
-      ) : (
-        <Navigate to={"/login"} replace />
-      ),
+      element:
+        check || token ? (
+          <SiderMY setCheck={setCheck}>
+            <Brands />
+          </SiderMY>
+        ) : (
+          <Navigate to={"/login"} replace />
+        ),
     },
     {
       path: "/cities",
-      element: check || token  ? (
-        <SiderMY setCheck={setCheck}>
-          <Cities />
-        </SiderMY>
-      ) : (
-        <Navigate to={"/login"} replace />
-      ),
+      element:
+        check || token ? (
+          <SiderMY setCheck={setCheck}>
+            <Cities />
+          </SiderMY>
+        ) : (
+          <Navigate to={"/login"} replace />
+        ),
     },
     {
       path: "/locations",
-      element: check || token  ? (
-        <SiderMY setCheck={setCheck}>
-          <Locations />
-        </SiderMY>
-      ) : (
-        <Navigate to={"/login"} replace />
-      ),
+      element:
+        check || token ? (
+          <SiderMY setCheck={setCheck}>
+            <Locations />
+          </SiderMY>
+        ) : (
+          <Navigate to={"/login"} replace />
+        ),
     },
     {
       path: "/models",
-      element: check || token  ? (
-        <SiderMY setCheck={setCheck}>
-          <Moduls />
-        </SiderMY>
-      ) : (
-        <Navigate to={"/login"} replace />
-      ),
+      element:
+        check || token ? (
+          <SiderMY setCheck={setCheck}>
+            <Moduls />
+          </SiderMY>
+        ) : (
+          <Navigate to={"/login"} replace />
+        ),
     },
     {
       path: "/cars",
-      element: check || token  ? (
-        <SiderMY setCheck={setCheck}>
-          <Cars />
-        </SiderMY>
-      ) : (
-        <Navigate to={"/login"} replace />
-      ),
+      element:
+        check || token ? (
+          <SiderMY setCheck={setCheck}>
+            <Cars />
+          </SiderMY>
+        ) : (
+          <Navigate to={"/login"} replace />
+        ),
     },
     {
       path: "/",
-      element: check || token  ? (
-        <Navigate to='/home' replace />
-      ) : (
-        <Navigate to='/login' replace />
-      ),
+      element:
+        check || token ? (
+          <Navigate to='/home' replace />
+        ) : (
+          <Navigate to='/login' replace />
+        ),
     },
   ]);
   return (

@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-undef */
@@ -21,7 +20,6 @@ import {
   Switch,
   message,
 } from "antd";
-import { CgOptions } from "react-icons/cg";
 
 const test = () => {
   const [cars, setCars] = useState([]);
@@ -497,9 +495,6 @@ const test = () => {
                 </Select.Option>
               ))}
             </Select>
-            <select name="" id="">
-            
-            </select>
           </Form.Item>
           <Form.Item
             label="Location"
